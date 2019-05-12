@@ -10,7 +10,7 @@
     <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Dashboard 3</title>
+    <title>Dashboard</title>
 
     <!-- Fontfaces CSS-->
     <link href="css/font-face.css" rel="stylesheet" media="all">
@@ -20,6 +20,7 @@
 
     <!-- Bootstrap CSS-->
     <link href="vendor/bootstrap-4.1/bootstrap.min.css" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
     <!-- Vendor CSS-->
     <link href="vendor/animsition/animsition.min.css" rel="stylesheet" media="all">
@@ -552,7 +553,6 @@
 
             <!-- STATISTIC-->
             <br>
-            <br>
             <section class="statistic-chart">
                 <div class="container">
                     <div class="row">
@@ -639,14 +639,15 @@
                         <div class="col-md-6 col-lg-4">
                             <!-- CHART-->
                             <div class="statistic-chart-1">
-                                <h3 class="title-3 m-b-30">Student travelled this week</h3>
+                                <!-- <h3 class="title-3 m-b-30">Students travelled this week</h3> -->
+                                <h4>Students travelled this week</h4>
                                 <div class="chart-wrap">
                                     <canvas id="widgetChart5"></canvas>
                                 </div>
-                                <div class="statistic-chart-1-note">
+                                <!-- <div class="statistic-chart-1-note">
                                     <span class="big">day of week</span>
                                     <span>/ students travelled</span>
-                                </div>
+                                </div> -->
                             </div>
                             <!-- END CHART-->
                         </div>
@@ -654,14 +655,15 @@
                         <div class="col-md-6 col-lg-4">
                             <!-- CHART2-->
                             <div class="statistic-chart-1">
-                                <h3 class="title-3 m-b-30">Total Students travelled this week</h3>
+                                <!-- <h3 class="title-3 m-b-30">Total Students travelled this week</h3> -->
+                                <h4>Total Students travelled this week</h4>
                                 <div class="chart-wrap">
                                     <canvas id="widgetChartStudents"></canvas>
                                 </div>
-                                <div class="statistic-chart-1-note">
+                                <!-- <div class="statistic-chart-1-note">
                                     <span class="big">Total</span>
                                     <span>/ students travelled</span>
-                                </div>
+                                </div> -->
                             </div>
                             <!-- END CHART2-->
                         </div>
@@ -747,16 +749,23 @@
                                         </select>
                                         <div class="dropDownSelect2"></div>
                                     </div>
+
+                                    <div class="rs-select2--light rs-select2--sm">
+                                        <input class="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
+                                        <div class="dateSelect"></div>
+                                    </div>
+
                                     <div class="rs-select2--light rs-select2--sm">
                                         <select class="js-select2" name="time" id = "dropdown3">
-                                            <option selected="selected">Today</option>
-                                            <option value="">3 Days</option>
-                                            <option value="">1 Week</option>
-                                            <option value="">1 Month</option>
-                                            <option value="">1 Year</option>
+                                            <option selected="selected">Schedule</option>
+                                            <option value="700">7:00 AM</option>
+                                            <option value="800">8:00 AM</option>
+                                            <option value="900">9:00 AM</option>
+                                            <option value="1000">10:00 AM</option>
                                         </select>
                                         <div class="dropDownSelect2"></div>
                                     </div>
+
                                   <!--   <button class="au-btn-filter">
                                         <i class="zmdi zmdi-filter-list"></i>filters</button> -->
                                 </div>
@@ -789,26 +798,20 @@
                                                     <span class="au-checkmark"></span>
                                                 </label>
                                             </th> -->
-                                            <th>Date</th>
-                                            <th>Day</th>
-                                            <th>Time</th>
                                             <th>Driver Name</th>
-                                            <th>Bus Number</th>
-                                            <th>Students Commuted</th>
+                                            <th>Bus No</th>
+                                            <th>Stop Name</th>
+                                            <th>Students Arrived</th>
+                                            <th>Students Departed</th>
+                                            <th>Racks Loaded</th>
+                                            <th>Racks UnLoaded</th>
                                             <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="tr-shadow">
-                                            <!-- <td>
-                                                <label class="au-checkbox">
-                                                    <input type="checkbox">
-                                                    <span class="au-checkmark"></span>
-                                                </label>
-                                            </td> -->
+                                        <!-- <tr class="tr-shadow">
                                             <td>Lori Lynch</td>
                                             <td>
-                                                <!-- <span class="block-email">lori@example.com</span> -->
                                                 rohan@gmail.com
                                             </td>
                                             <td class="desc">Samsung S8 Black</td>
@@ -817,128 +820,10 @@
                                                 <span class="status--process">Processed</span>
                                             </td>
                                             <td>$679.00</td>
-                                            <!-- <td>
-                                                <div class="table-data-feature">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-                                                        <i class="zmdi zmdi-mail-send"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                        <i class="zmdi zmdi-delete"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                        <i class="zmdi zmdi-more"></i>
-                                                    </button>
-                                                </div>
-                                            </td> -->
-                                        </tr>
-                                        <tr class="spacer"></tr>
-                                        <tr class="tr-shadow">
-                                            <!-- <td>
-                                                <label class="au-checkbox">
-                                                    <input type="checkbox">
-                                                    <span class="au-checkmark"></span>
-                                                </label>
-                                            </td> -->
-                                            <td>Lori Lynch</td>
-                                            <td>
-                                                <span class="block-email">john@example.com</span>
-                                            </td>
-                                            <td class="desc">iPhone X 64Gb Grey</td>
-                                            <td>2018-09-29 05:57</td>
-                                            <td>
-                                                <span class="status--process">Processed</span>
-                                            </td>
-                                            <td>$999.00</td>
-                                            <!-- <td>
-                                                <div class="table-data-feature">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-                                                        <i class="zmdi zmdi-mail-send"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                        <i class="zmdi zmdi-delete"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                        <i class="zmdi zmdi-more"></i>
-                                                    </button>
-                                                </div>
-                                            </td> -->
-                                        </tr>
-                                        <tr class="spacer"></tr>
-                                        <tr class="tr-shadow">
-                                            <!-- <td>
-                                                <label class="au-checkbox">
-                                                    <input type="checkbox">
-                                                    <span class="au-checkmark"></span>
-                                                </label>
-                                            </td> -->
-                                            <td>Lori Lynch</td>
-                                            <td>
-                                                <span class="block-email">lyn@example.com</span>
-                                            </td>
-                                            <td class="desc">iPhone X 256Gb Black</td>
-                                            <td>2018-09-25 19:03</td>
-                                            <td>
-                                                <span class="status--denied">Denied</span>
-                                            </td>
-                                            <td>$1199.00</td>
-                                            <!-- <td>
-                                                <div class="table-data-feature">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-                                                        <i class="zmdi zmdi-mail-send"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                        <i class="zmdi zmdi-delete"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                        <i class="zmdi zmdi-more"></i>
-                                                    </button>
-                                                </div>
-                                            </td> -->
-                                        </tr>
-                                        <tr class="spacer"></tr>
-                                        <tr class="tr-shadow">
-                                            <!-- <td>
-                                                <label class="au-checkbox">
-                                                    <input type="checkbox">
-                                                    <span class="au-checkmark"></span>
-                                                </label>
-                                            </td> -->
-                                            <td>Lori Lynch</td>
-                                            <td>
-                                                <span class="block-email">doe@example.com</span>
-                                            </td>
-                                            <td class="desc">Camera C430W 4k</td>
-                                            <td>2018-09-24 19:10</td>
-                                            <td>
-                                                <span class="status--process">Processed</span>
-                                            </td>
-                                            <td>$699.00</td>
-                                            <!-- <td>
-                                                <div class="table-data-feature">
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Send">
-                                                        <i class="zmdi zmdi-mail-send"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                                        <i class="zmdi zmdi-edit"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                                        <i class="zmdi zmdi-delete"></i>
-                                                    </button>
-                                                    <button class="item" data-toggle="tooltip" data-placement="top" title="More">
-                                                        <i class="zmdi zmdi-more"></i>
-                                                    </button>
-                                                </div>
-                                            </td> -->
-                                        </tr>
+                                        </tr> -->
+                                        
+                                        <!-- <tr class="spacer"></tr> -->
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -971,8 +856,7 @@
     <script src="vendor/bootstrap-4.1/popper.min.js"></script>
     <script src="vendor/bootstrap-4.1/bootstrap.min.js"></script>
     <!-- Vendor JS       -->
-    <script src="vendor/slick/slick.min.js">
-    </script>
+    <script src="vendor/slick/slick.min.js"></script>
     <script src="vendor/wow/wow.min.js"></script>
     <script src="vendor/animsition/animsition.min.js"></script>
     <script src="vendor/bootstrap-progressbar/bootstrap-progressbar.min.js">
@@ -987,10 +871,12 @@
     <script src="vendor/xlsx/xlsx.min.js"></script>
     <script src="vendor/file-saver/src/FileSaver.js"></script>
     <script src="vendor/tableexport/src/stable/js/tableexport.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 
     <!-- Main JS-->
     <script src="js/graphdata.js"></script>
     <script src="js/main.js"></script>
+
 
     
 

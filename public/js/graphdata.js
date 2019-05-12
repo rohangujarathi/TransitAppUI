@@ -29,16 +29,16 @@ function getMonthlyStudentsData(){
   xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
         var response = xhttp.responseText;
+        if(response=="No docs found"){
+          return;
+        }
+        console.log(response);
         var data = JSON.parse(this.response)
         students = data.totalstudents;
         bikeracks = data.totalracks;
         console.log(students, bikeracks);
         document.getElementsByClassName("number").item(0).innerHTML = students;
         document.getElementsByClassName("number").item(1).innerHTML = bikeracks;
-        // return field1;
-      //   data.forEach(movie => {
-      //   console.log(movie.title)
-      // })
 
     } else {
         console.log("Error");
@@ -101,19 +101,42 @@ function getWeeklyRouteData(){
     if (this.readyState == 4 && this.status == 200) {
       let response = xhttp.responseText;
       console.log(response);
+      if(response=="No trip docs found"){
+        return;
+      }
       let data = JSON.parse(this.response);
       let students = data.studentsList;
       let dates = data.datelist;
-      let day = [];
-      weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      // let day = [];
+      let dict = {};
+      weekday = ['Sun', 'Mon', 'Tu', 'Wed', 'Th', 'Fri', 'Sat'];
       for (var i = 0; i <= dates.length - 1; i++) {
         let d= new Date(dates[i])
-        day.push(weekday[d.getDay()]);
-
+        // day.push(weekday[d.getDay()]);
+        let day = weekday[d.getDay()];
+        if(day in dict){
+          temp = dict[day];
+          dict[day] = temp + students[i];
+        }
+        else{
+          dict[day] = students[i];
+        }
       }
+
+      listStudents = []
+      listDays = []
+      for (var i in dict) {
+        listDays.push(i);
+        listStudents.push(dict[i]);
+      }
+
       var ctx = document.getElementById("widgetChart5");
-      getTotalStudentsPerWeek(students, route);
-      drawChart(ctx, day, students);
+      if(oldchart){
+        // console.log(oldchart)
+        oldchart.destroy();
+    }
+      getTotalStudentsPerWeek(listStudents, route);
+      drawChart(ctx, listDays, listStudents);
     }
     else{
       console.log("Error");
@@ -122,54 +145,62 @@ function getWeeklyRouteData(){
 xhttp.send();
 }
 
+var oldchart;
+var oldchart1;
 
 function drawChart(ctx, week, students){
-try {
-    //WidgetChart 5
+  try {
+
+    // single bar chart
+    // console.log(week);
+    // console.log(students);
     if (ctx) {
       ctx.height = 220;
       var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-          // labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
           labels: week,
           datasets: [
             {
               label: "Students",
-              // data [10, 20, 30, 40, 50, 60, 70],
               data: students,
-              borderColor: "transparent",
-              borderWidth: "0",
-              backgroundColor: "#ccc",
+              backgroundColor: "#ccc"
             }
           ]
         },
         options: {
-          maintainAspectRatio: true,
           legend: {
-            display: true
+            position: 'top',
+            labels: {
+              fontFamily: 'Poppins'
+            }
+
           },
           scales: {
             xAxes: [{
-              display: false,
-              categoryPercentage: 1,
-              barPercentage: 0.65
+              ticks: {
+                fontFamily: "Poppins"
+              },
+              display: true
             }],
             yAxes: [{
-              display: false
+              ticks: {
+                beginAtZero: true,
+                fontFamily: "Poppins",
+              },
+              display: true
             }]
           }
         }
       });
     }
-
+  oldchart = myChart;
   } catch (error) {
     console.log(error);
   }
 }
 
-// getWeeklyRouteData();
-// getTotalStudentsPerWeek();
+
 
 function getTotalStudentsPerWeek(students, route){
 
@@ -178,6 +209,11 @@ function getTotalStudentsPerWeek(students, route){
     totalstudents = totalstudents + students[i];
   }
   var ctx = document.getElementById("widgetChartStudents");
+  if(oldchart1){
+        // console.log(oldchart)
+        oldchart1.destroy();
+    }
+
   drawChartPerRoute(ctx, [totalstudents], [route]);
 
 }
@@ -209,17 +245,18 @@ try {
           },
           scales: {
             xAxes: [{
-              display: false,
+              display: true,
               categoryPercentage: 0.5,
               barPercentage: 0.65
             }],
             yAxes: [{
-              display: true
+              display: false
             }]
           }
         }
       });
     }
+    oldchart1 = myChart;
 
   } catch (error) {
     console.log(error);
@@ -229,28 +266,46 @@ try {
 function createTable(){
   var xhttp = new XMLHttpRequest();
   var route = document.getElementById("dropdown2").value;
-  var time = document.getElementById("dropdown3").value;
-  // console.log(route);
-  xhttp.open("GET", "https://us-central1-transitapp-d5956.cloudfunctions.net/api/testing", true);
+  var schedule = document.getElementById("dropdown3").value;
+  let date = document.getElementById("date").value;
+  // date = date.replace("/", "-");
+  date = date.split("/").join("-");
+  console.log(date, route, schedule);
+
+  xhttp.open("GET", "https://us-central1-transitapp-d5956.cloudfunctions.net/api/getTableDetails/" + route +"/" + date + "/" + schedule, true);
   xhttp.onreadystatechange = function(){
     if (this.readyState == 4 && this.status == 200) {
       var response = xhttp.responseText;
+      if(response=="No trip docs found"){
+        console.log(response);
+        return;
+      }
       var data = JSON.parse(this.response);
-
+      console.log(data);
+      let driverName = data['driver_name'];
+      console.log(driverName);
       var table = document.getElementById("table1");
-      var row = table.insertRow(3);
-      var cell1 = row.insertCell(0);
-      var cell2 = row.insertCell(1);
-      var cell3 = row.insertCell(2);
-      var cell4 = row.insertCell(3);
-      var cell5 = row.insertCell(4);
-      var cell6 = row.insertCell(5);
-      cell1.innerHTML = "5/9/2019";
-      cell2.innerHTML = "Thursday";
-      cell3.innerHTML = "7:30";
-      cell4.innerHTML = "John";
-      cell5.innerHTML = "112";
-      cell6.innerHTML = "50";
+
+      for (var i = 0; i<=driverName.length - 1; i++) {
+        // var row = table.insertRow(i);
+
+        var row = table.insertRow(i+1);
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        var cell3 = row.insertCell(2);
+        var cell4 = row.insertCell(3);
+        var cell5 = row.insertCell(4);
+        var cell6 = row.insertCell(5);
+        var cell7 = row.insertCell(6);
+        cell1.innerHTML = data['driver_name'][i];
+        cell2.innerHTML = data['bus_no'][i];
+        cell3.innerHTML = data['trip_stop'][i];
+        cell4.innerHTML = data['trip_students_arrived'][i];
+        cell5.innerHTML = data['trip_students_departed'][i];
+        cell6.innerHTML = data['trip_racks_unloaded'][i];
+        cell7.innerHTML = data['driver_name'][i];
+      }
+
       exportTableToExcel();
     }
     else{
@@ -276,5 +331,17 @@ function exportTableToExcel(){
     ignoreCSS: "tableexport-ignore" });  
 
 }
+
+
+$(document).ready(function(){
+      var date_input=$('input[name="date"]'); //our date input has the name "date"
+      var options={
+        format: 'mm/dd/yyyy',
+        // container: container,
+        todayHighlight: true,
+        autoclose: true,
+      };
+      date_input.datepicker(options);
+    })
 
 
