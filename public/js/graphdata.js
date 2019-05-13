@@ -302,8 +302,8 @@ function createTable(){
         cell3.innerHTML = data['trip_stop'][i];
         cell4.innerHTML = data['trip_students_arrived'][i];
         cell5.innerHTML = data['trip_students_departed'][i];
-        cell6.innerHTML = data['trip_racks_unloaded'][i];
-        cell7.innerHTML = data['driver_name'][i];
+        cell6.innerHTML = data['trip_racks_loaded'][i];
+        cell7.innerHTML = data['trip_racks_loaded'][i];
       }
 
       exportTableToExcel();
